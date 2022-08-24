@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../services/login-service.service';
+import { MessageService } from 'primeng/api';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private loginService: LoginService,
-    //private messages: MessageService,
+    private messages: MessageService,
 
    ) {
   }
@@ -39,18 +40,18 @@ export class SignupComponent implements OnInit {
 
   async onSubmit(){
     this.loading = true;
-    //try {
+    try {
       let petition = await this.loginService.register(this.loginForm);
-      /*if(petition) {
+      if(petition) {
         this.messages.add({severity:'success', summary:'Success!', detail:'Please check your email to activate your account'});
       } else {
-        this.messages.add({severity:'warn', summary:'Email or url in use', detail:'Email or url already in use!'});
+        this.messages.add({severity:'warn', summary:'Username in use', detail:'Username!'});
 
       }
 
       } catch (exception) {
         this.messages.add({severity:'error', summary:'Something failed!', detail:'Something has failed. Check your internet connection or try again later'});
-      }*/
+      }
 
 
     this.loading = false;

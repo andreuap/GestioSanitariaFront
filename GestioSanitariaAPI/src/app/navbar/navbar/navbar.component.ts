@@ -8,19 +8,27 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
 currentUrl = '';
-  showNav = true;
+  showDefaultNav = true;
+  showLoggedNav = false;
 
   constructor(private router: Router) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.currentUrl = event.url;
-        this.showNav = !( this.currentUrl == '/signup' || this.currentUrl == '/login' );
-        console.log(this.showNav);
+        this.showDefaultNav = !( this.currentUrl == '/signup' || this.currentUrl == '/login' || this.currentUrl == '/home' );
+        this.showLoggedNav =  this.currentUrl == '/home';
+        console.log(this.showDefaultNav);
       }
     });
    }
 
   ngOnInit(): void {
+  }
+
+  onLogout()
+  {
+    localStorage.clear();
+    this.router.navigate(['/login']);
   }
 
 }

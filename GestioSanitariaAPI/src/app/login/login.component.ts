@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { LoginService } from '../services/login-service.service';
 
 @Component({
@@ -21,7 +22,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private loginService: LoginService,
-    //private messages: MessageService,
+    private messages: MessageService,
     private router: Router,
     //private recaptchaV3Service: ReCaptchaV3Service
 
@@ -40,12 +41,12 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     try {
       let login = await this.loginService.logIn(this.loginForm);
-      /*if(!login) {
+      if(!login) {
         this.messages.add({severity:'warn', summary:'Login failed', detail:'Check email, passowrd, or if you recived the activation email!'});
-      }*/
+      }
     } catch (exception) {
       console.log(exception);
-      //this.messages.add({severity:'error', summary:'Something failed!', detail:'Something has failed. Check your internet connection or try again later'});
+      this.messages.add({severity:'error', summary:'Something failed!', detail:'Something has failed. Check your internet connection or try again later'});
 
     }
     this.loading = false;

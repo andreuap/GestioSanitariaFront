@@ -8,17 +8,19 @@
                       <div class="mb-3 col-md-6">
                           <label>User Name<span class="text-danger">*</span></label>
                           <input formControlName="username" type="text" name="user" class="form-control" placeholder="Enter User Name" required>
+                          <span class="text-danger" *ngIf="loginForm.get('username')?.errors && loginForm.get('username')?.hasError('required')">Username is required</span>
                       </div>
                       <div class="mb-3 col-md-12">
                           <label>Password<span class="text-danger">*</span></label>
                           <input formControlName="password" type="password" name="password" class="form-control" placeholder="Enter Password" required>
+                          <span class="text-danger" *ngIf="loginForm.get('password')?.errors && loginForm.get('password')?.hasError('required')">Password is required</span>
                       </div>
                       <div class="col-md-12">
-                         <button class="btn btn-primary float-end"></button>
+                         <button class="btn btn-primary float-end" [disabled]="!loginForm.valid">Login</button>
                       </div>
                   </div>
               </form>
-              <p class="text-center mt-3 text-secondary">If you don't have account, Please <a href="/singup">Register</a></p>
+              <p class="text-center mt-3 text-secondary">If you don't have account, please <a href="/signup">Register</a></p>
           </div>
       </div>
   </div>

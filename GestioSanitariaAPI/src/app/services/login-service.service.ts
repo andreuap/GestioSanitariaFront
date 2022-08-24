@@ -28,7 +28,6 @@ export class LoginService {
   async logIn(loginForm: UntypedFormGroup): Promise<boolean> {
     let success = false;
     try {
-      console.log(loginForm.value);
       let petition: any = await this.http.post(environment.baseUrl + '/api/UserApi/LoginUser',
         this.utils.objectToFormData(loginForm.value)).toPromise();
         console.log(petition)
@@ -56,7 +55,7 @@ export class LoginService {
       let petition: any = await this.http.post(environment.baseUrl + '/api/UserApi', registerUser).toPromise();
       if (petition.success) {
         success = true;
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/login']);
       }
     } catch (exception) {
       console.error(exception);
@@ -90,37 +89,5 @@ export class LoginService {
     }
 
     return res;
-  }
-
-  async activateAccount(email: string, code: string) {
-    const payload = new FormData();
-    let res = false;
-    payload.append('email', email);
-    payload.append('code', code);
-    let response: any = await this.http.post(environment.baseUrl + '/activateUser', payload).toPromise();
-    if(response && response.success) {
-      this.router.navigate(['/']);
-    }
-
-    return res;
-  }
-
-  async updateProfile(updateProfileForm: UntypedFormGroup, img: File | undefined): Promise<boolean> {
-    let success = false;
-    try {
-      let payload =  this.utils.objectToFormData(updateProfileForm.value);
-      if(img){
-        payload.append('avatar', img);
-      }
-      let petition: any = await this.http.post(environment.baseUrl + '/editProfile',
-       payload).toPromise();
-      if (petition.success) {
-        success = true;
-      }
-    } catch (exception) {
-      console.error(exception);
-    }
-    return success;
-
   }
 }
