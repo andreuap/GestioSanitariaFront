@@ -19,25 +19,18 @@
                       </div>
                       <div class="mb-3 col-md-6">
                         <label>Data Alta<span class="text-danger">*</span></label>
-                        <input formControlName="dataalta" type="datetime" name="dataalta" class="form-control" placeholder="" required>
+                        <input formControlName="dataalta" type="datetime" name="dataalta" class="form-control" placeholder="" readonly required>
                       </div>
                       <div class="mb-3 col-md-6">
-                        <label>Data Baixa</label>
-                        <input formControlName="databaixa" readonly type="datetime" name="email" class="form-control">
+                        <div><label for="rol">Rol<span class="text-danger">*</span></label></div>
+                        <div><p-dropdown id="rol" [options]="rolesList" formControlName="roles" optionLabel="rol" optionValue="id" placeholder="Select a rol"></p-dropdown></div>
                       </div>
-                      <div class="form-check d-flex mb-3">
-                        <label>Bloquejat<span class="text-danger">*</span></label>
-                        <input formControlName="bloquejat" class="form-check-input me-2" type="checkbox" value=""/>
-                      </div>
-                      <div class="row mt-2 float-end">
-                        <div class="col-md-12">
-                          <button class="btn btn-primary">Signup Now</button>
-                          <button class="btn btn-primary ml-2">Cancel</button>
-                        </div>
+                      <div class="col-md-12">
+                        <button class="btn btn-primary">Signup Now</button>
                       </div>
                   </div>
               </form>
-              <p class="text-center mt-3 text-secondary">If you have account, Please <a href="/login">Login Now</a></p>
+              <p class="text-center mt-3 text-secondary">If you have account, Please <a href="/login">Login Now</a> or <a href="/">Cancel</a> to come back to initial page</p>
           </div>
       </div>
   </div>

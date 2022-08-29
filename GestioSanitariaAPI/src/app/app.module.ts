@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -10,6 +10,12 @@ import { SignupComponent } from './signup/signup.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { MessageService } from 'primeng/api';
+import {ToastModule} from 'primeng/toast';
+import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MenubarModule} from 'primeng/menubar';
+import { UsersListComponent } from './users-list/users-list.component';
+import { TableModule } from 'primeng/table';
+import {DropdownModule} from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -18,15 +24,22 @@ import { MessageService } from 'primeng/api';
     SignupComponent,
     HomeComponent,
     LoginComponent,
+    UsersListComponent,
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastModule,
+    MenubarModule,
+    TableModule,
+    FormsModule,
+    DropdownModule
   ],
   providers: [
-    MessageService
+    MessageService,
   ],
   bootstrap: [AppComponent]
 })

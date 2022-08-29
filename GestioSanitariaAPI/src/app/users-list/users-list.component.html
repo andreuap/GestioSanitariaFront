@@ -1,0 +1,36 @@
+<p-table [columns]="cols" [value]="userData" dataKey="id" editMode="col" responsiveLayout="scroll">
+  <ng-template pTemplate="header" let-columns>
+      <tr>
+          <th *ngFor="let col of columns">
+              {{col.header}}
+          </th>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-user>
+    <tr [pEditableRow]="userData">
+        <td pEditableColumn>
+            <p-cellEditor>
+                <ng-template pTemplate="input">
+                    <input pInputText type="text" [(ngModel)]="user.userName">
+                </ng-template>
+                <ng-template pTemplate="output">
+                    {{user.userName}}
+                </ng-template>
+            </p-cellEditor>
+        </td>
+        <td pEditableColumn>
+            <p-cellEditor>
+                <ng-template pTemplate="input">
+                    <input pInputText type="text" [(ngModel)]="userData.email" required>
+                </ng-template>
+                <ng-template pTemplate="output">
+                    {{user.email}}
+                </ng-template>
+            </p-cellEditor>
+        </td>
+        <td style="text-align:center">
+          <button pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(user)" class="p-button-rounded p-button-text"></button>
+        </td>
+    </tr>
+</ng-template>
+</p-table>

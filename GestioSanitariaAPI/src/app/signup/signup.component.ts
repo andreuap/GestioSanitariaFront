@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../services/login-service.service';
 import { MessageService } from 'primeng/api';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -12,6 +14,7 @@ import { MessageService } from 'primeng/api';
 export class SignupComponent implements OnInit {
 
   loading = false;
+  rolesList : any;
 
   //minimumRegistrationDate: Date;
 
@@ -19,21 +22,20 @@ export class SignupComponent implements OnInit {
     username:  new UntypedFormControl('', [Validators.required]),
     password: new UntypedFormControl('', [Validators.required]),
     email: new UntypedFormControl('', [Validators.required, Validators.email]),
-    dataalta: new UntypedFormControl('', [Validators.required]),
-    databaixa: new UntypedFormControl('', []),
+    dataalta: new UntypedFormControl(this.currentDate(), [Validators.required]),
     bloquejat:  new UntypedFormControl(false, []),
+    roles: new UntypedFormControl('', [Validators.required])
   });
 
   constructor(
     private loginService: LoginService,
     private messages: MessageService,
-
+    private httpClient: HttpClient
    ) {
   }
 
   ngOnInit(): void {
-
-
+    this.onGetRoles();
   }
 
 
@@ -41,11 +43,12 @@ export class SignupComponent implements OnInit {
   async onSubmit(){
     this.loading = true;
     try {
+      console.log('Los datos del formulario son: ' + this.loginForm.value);
       let petition = await this.loginService.register(this.loginForm);
       if(petition) {
-        this.messages.add({severity:'success', summary:'Success!', detail:'Please check your email to activate your account'});
+        this.messages.add({severity:'success', summary:'Success!', detail:'Can you login or later'});
       } else {
-        this.messages.add({severity:'warn', summary:'Username in use', detail:'Username!'});
+        this.messages.add({severity:'warn', summary:'Username in use', detail:'Username exist!'});
 
       }
 
@@ -60,5 +63,13 @@ export class SignupComponent implements OnInit {
   currentDate() {
     const currentDate = new Date();
     return currentDate.toISOString().substring(0,10);
+  }
+
+  onGetRoles()
+  {
+    return this.httpClient.get(environment.baseUrl + '/api/RolesApi').subscribe((data) => {
+      this.rolesList = data;
+      console.log(this.rolesList);
+    });
   }
 }

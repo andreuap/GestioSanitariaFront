@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { FormGroup, UntypedFormGroup } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { UtilsService } from './utils.service';
@@ -18,7 +18,6 @@ export class LoginService {
     private router: Router,
     private utils: UtilsService,
     private jwt: JwtService,
-
   ) { }
 
   checkUserLoggedIn(): boolean {
@@ -48,11 +47,9 @@ export class LoginService {
     let success = false;
     try {
       let registerUser =  this.utils.objectToFormData(registerForm.value);
-      //const headers = {'content-type': 'application/json'};
-      //console.log(registerUser);
-      //let body = JSON.stringify(registerForm.value);
-      console.log(registerForm);
+      console.log(registerUser);
       let petition: any = await this.http.post(environment.baseUrl + '/api/UserApi', registerUser).toPromise();
+      console.log('Los datos de la peticion son: '+ petition);
       if (petition.success) {
         success = true;
         this.router.navigate(['/login']);
