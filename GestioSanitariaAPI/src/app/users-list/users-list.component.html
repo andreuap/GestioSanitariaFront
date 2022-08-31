@@ -1,4 +1,4 @@
-<p-table [columns]="cols" [value]="userData" dataKey="id" editMode="col" responsiveLayout="scroll">
+<p-table [columns]="cols" [value]="userData" dataKey="id" editMode="row" responsiveLayout="scroll">
   <ng-template pTemplate="header" let-columns>
       <tr>
           <th *ngFor="let col of columns">
@@ -6,9 +6,9 @@
           </th>
       </tr>
   </ng-template>
-  <ng-template pTemplate="body" let-user>
+  <ng-template pTemplate="body" let-product let-editing="editing" let-ri="rowIndex" let-user>
     <tr [pEditableRow]="userData">
-        <td pEditableColumn>
+        <td>
             <p-cellEditor>
                 <ng-template pTemplate="input">
                     <input pInputText type="text" [(ngModel)]="user.userName">
@@ -18,18 +18,63 @@
                 </ng-template>
             </p-cellEditor>
         </td>
-        <td pEditableColumn>
+        <td>
             <p-cellEditor>
                 <ng-template pTemplate="input">
-                    <input pInputText type="text" [(ngModel)]="userData.email" required>
+                    <input pInputText type="text" [(ngModel)]="user.password" required>
                 </ng-template>
                 <ng-template pTemplate="output">
-                    {{user.email}}
+                    {{user.password}}
                 </ng-template>
             </p-cellEditor>
         </td>
+        <td>
+          <p-cellEditor>
+              <ng-template pTemplate="input">
+                  <input pInputText type="text" [(ngModel)]="user.email" required>
+              </ng-template>
+              <ng-template pTemplate="output">
+                  {{user.email}}
+              </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          {{user.dataAlta}}
+        </td>
+        <td>
+          <p-cellEditor>
+              <ng-template pTemplate="input">
+                  <input pInputText type="datetime" [(ngModel)]="user.dataBaixa" required>
+              </ng-template>
+              <ng-template pTemplate="output">
+                  {{user.dataBaixa}}
+              </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+              <ng-template pTemplate="input">
+                  <input pInputText type="checkbox" [(ngModel)]="user.esBloquejat" required>
+              </ng-template>
+              <ng-template pTemplate="output">
+                <input pInputText type="checkbox" [(ngModel)]="user.esBloquejat" required>
+              </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+              <ng-template pTemplate="input">
+                  <input pInputText type="text" [(ngModel)]="user.rol" required>
+              </ng-template>
+              <ng-template pTemplate="output">
+                  {{user.rol}}
+              </ng-template>
+          </p-cellEditor>
+        </td>
         <td style="text-align:center">
-          <button pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(user)" class="p-button-rounded p-button-text"></button>
+          <button *ngIf="!editing" pButton="Edit" pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(user)" class="p-button-rounded p-button-text"></button>
+          <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(user)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+          <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(user, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
         </td>
     </tr>
 </ng-template>

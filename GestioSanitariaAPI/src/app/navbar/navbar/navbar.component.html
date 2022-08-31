@@ -24,4 +24,5 @@
     </div>
   </div>
 </nav>
-<p-menubar [model]="items" class="nav-link active" aria-current="page" *ngIf="showLoggedNav"></p-menubar>
+<p-menubar [model]="itemsAdmin" class="nav-link active" aria-current="page" *ngIf="(showLoggedNav && userRol == 'Admin')"></p-menubar>
+<p-menubar [model]="itemsMetges" class="nav-link active" aria-current="page" *ngIf="(showLoggedNav && userRol == 'Metge')"></p-menubar>

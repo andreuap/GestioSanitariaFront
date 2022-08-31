@@ -23,8 +23,7 @@ export class SignupComponent implements OnInit {
     password: new UntypedFormControl('', [Validators.required]),
     email: new UntypedFormControl('', [Validators.required, Validators.email]),
     dataalta: new UntypedFormControl(this.currentDate(), [Validators.required]),
-    bloquejat:  new UntypedFormControl(false, []),
-    roles: new UntypedFormControl('', [Validators.required])
+    rol: new UntypedFormControl('', [Validators.required])
   });
 
   constructor(
@@ -43,7 +42,6 @@ export class SignupComponent implements OnInit {
   async onSubmit(){
     this.loading = true;
     try {
-      console.log('Los datos del formulario son: ' + this.loginForm.value);
       let petition = await this.loginService.register(this.loginForm);
       if(petition) {
         this.messages.add({severity:'success', summary:'Success!', detail:'Can you login or later'});

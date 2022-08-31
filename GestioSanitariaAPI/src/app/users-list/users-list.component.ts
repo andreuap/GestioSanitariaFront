@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { catchError } from 'rxjs';
 import { UsersList } from '../interfaces/users-list';
 import { UserListService } from '../services/user-list.service';
 
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
-  styleUrls: ['./users-list.component.scss']
+  styles: [`
+        :host ::ng-deep .p-cell-editing {
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+        }
+    `]
 })
 export class UsersListComponent implements OnInit {
 
@@ -28,6 +32,7 @@ export class UsersListComponent implements OnInit {
 
         this.cols= [
           { field: 'userName', header: 'UserName' },
+          { field: 'password', header: 'password' },
           { field: 'email', header: 'Email' },
           { field: 'dataAlta', header: 'Data Alta' },
           { field: 'dataBaixa', header: 'Data Baixa' },
@@ -44,6 +49,13 @@ export class UsersListComponent implements OnInit {
   }
 
   onRowEditInit(userData: UsersList) {
+
+  }
+  onRowEditSave(user : UsersList)
+  {
+
+  }
+  onRowEditCancel(userData: UsersList, index : number){
 
   }
 }
