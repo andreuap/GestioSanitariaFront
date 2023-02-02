@@ -4,6 +4,8 @@ import { LoginService } from '../services/login-service.service';
 import { MessageService } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { DatePipe } from '@angular/common';
+import { environment_iis } from 'src/environments/environment_iis';
 
 
 @Component({
@@ -65,9 +67,9 @@ export class SignupComponent implements OnInit {
 
   onGetRoles()
   {
+    //return this.httpClient.get(environment.baseUrl + '/api/RolesApi').subscribe((data) => { this.rolesList = data });
     return this.httpClient.get(environment.baseUrl + '/api/RolesApi').subscribe((data) => {
       this.rolesList = data;
-      console.log(this.rolesList);
     });
   }
 }

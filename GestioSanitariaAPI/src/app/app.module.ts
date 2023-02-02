@@ -16,6 +16,14 @@ import {MenubarModule} from 'primeng/menubar';
 import { UsersListComponent } from './users-list/users-list.component';
 import { TableModule } from 'primeng/table';
 import {DropdownModule} from 'primeng/dropdown';
+import { ButtonModule } from 'primeng/button';
+import {RadioButtonModule} from 'primeng/radiobutton';
+import { EditUserComponent } from './edit-user/edit-user.component';
+import { PacienteComponent } from './paciente/paciente.component';
+import {CalendarModule} from 'primeng/calendar';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
+
+
 
 @NgModule({
   declarations: [
@@ -25,6 +33,8 @@ import {DropdownModule} from 'primeng/dropdown';
     HomeComponent,
     LoginComponent,
     UsersListComponent,
+    EditUserComponent,
+    PacienteComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,7 +46,11 @@ import {DropdownModule} from 'primeng/dropdown';
     MenubarModule,
     TableModule,
     FormsModule,
-    DropdownModule
+    DropdownModule,
+    ButtonModule,
+    RadioButtonModule,
+    CalendarModule,
+    ProgressSpinnerModule
   ],
   providers: [
     MessageService,

@@ -36,7 +36,9 @@ export class JwtService {
   getTokenData(){
     const tokenString = localStorage.getItem('authToken');
     if(tokenString) {
-      return this.decodeToken(tokenString);
+      let token = this.decodeToken(tokenString);
+      console.log("El token es: ", token);
+      return token;
 
     } else {
       return {};

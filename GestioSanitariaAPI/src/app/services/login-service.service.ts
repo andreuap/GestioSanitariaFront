@@ -6,6 +6,8 @@ import { environment } from 'src/environments/environment';
 import { UtilsService } from './utils.service';
 import { JwtService } from './jwt.service';
 import { BehaviorSubject } from 'rxjs';
+import { environment_iis } from 'src/environments/environment_iis';
+import { environment_ip } from 'src/environments/environment_ip';
 
 
 @Injectable({
@@ -29,13 +31,13 @@ export class LoginService {
   async logIn(loginForm: UntypedFormGroup): Promise<boolean> {
     let success = false;
     try {
-      let petition: any = await this.http.post(environment.baseUrl + '/api/UserApi/LoginUser',
-        this.utils.objectToFormData(loginForm.value)).toPromise();
-        console.log(petition)
+        let petition: any = await this.http.post(environment_ip.baseUrl + '/api/UserApi/LoginUser', this.utils.objectToFormData(loginForm.value)).toPromise();
+        //let petition: any = await this.http.post(environment_iis.baseUrl + '/api/UserApi/LoginUser',
+        //this.utils.objectToFormData(loginForm.value)).toPromise();
       if (petition.userName)
       {
         localStorage.setItem('authToken', petition.token);
-
+        console.log("Los datos del token son: " + petition.token);
         success = true;
         this.router.navigate(['/home']);
       }
@@ -50,12 +52,9 @@ export class LoginService {
   async register(registerForm: FormGroup): Promise<boolean> {
     let success = false;
     try {
-      console.log('Los datos del registro son: ', registerForm.value);
       let registerUser =  this.utils.objectToFormData(registerForm.value);
-      console.log('Los datos del registro son: ', registerUser);
-      let petition: any = await this.http.post(environment.baseUrl + '/api/UserApi', registerUser).toPromise();
+      let petition: any = await this.http.post(environment_iis.baseUrl + '/api/UserApi', registerUser).toPromise();
       let jsonStringPetition = JSON.stringify(petition);
-      console.log('Los datos de la peticion son: '+ jsonStringPetition);
       if (jsonStringPetition.length > 0) {
         success = true;
         this.router.navigate(['/login']);
@@ -63,7 +62,7 @@ export class LoginService {
     } catch (exception) {
       console.error(exception);
     }
-    this.logingEventEmitter.next('Registardo');
+    this.logingEventEmitter.next('Registrado');
     return success;
   }
 
@@ -72,7 +71,7 @@ export class LoginService {
     let res = false;
     payload.append('email', email);
     payload.append('captchaResponse', captchaResponse);
-    let response: any = await this.http.post(environment.baseUrl + '/forgotPassword', payload).toPromise();
+    let response: any = await this.http.post(environment_iis.baseUrl + '/forgotPassword', payload).toPromise();
     console.log(response.success);
     if(response && response.success) {
       this.router.navigate(['/']);

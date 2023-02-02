@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { environment_ip } from 'src/environments/environment_ip';
 import { UsersList } from '../interfaces/users-list';
 
 @Injectable({
@@ -15,7 +16,7 @@ export class UserListService {
 
   getUserList()
   {
-      return this.httpClient.get(environment.baseUrl + '/api/UserApi');
+      return this.httpClient.get(environment_ip.baseUrl + '/api/UserApi');
   }
 }
 

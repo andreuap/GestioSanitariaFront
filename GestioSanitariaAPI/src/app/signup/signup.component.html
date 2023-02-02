@@ -8,17 +8,17 @@
                       <div class="mb-3 col-md-6">
                           <label>User Name<span class="text-danger">*</span></label>
                           <input formControlName="username" type="text" name="user" class="form-control" placeholder="Enter User Name" required>
-                          <span class="text-danger" *ngIf="loginForm.get('username')?.errors && loginForm.get('username')?.hasError('required')">Username is required</span>
+                          <span class="text-danger" *ngIf="loginForm.get('username')?.errors">Username is required</span>
                       </div>
                       <div class="mb-3 col-md-12">
                           <label>Password<span class="text-danger">*</span></label>
                           <input formControlName="password" type="password" name="password" class="form-control" placeholder="Enter Password" required>
-                          <span class="text-danger" *ngIf="loginForm.get('password')?.errors && loginForm.get('password')?.hasError('required')">Password is required</span>
+                          <span class="text-danger" *ngIf="loginForm.get('password')?.errors">Password is required</span>
                       </div>
                       <div class="mb-3 col-md-6">
                         <label>Email<span class="text-danger">*</span></label>
                         <input formControlName="email" type="text" name="email" class="form-control" placeholder="Enter Email" required>
-                        <span class="text-danger" *ngIf="loginForm.get('email')?.errors && loginForm.get('email')?.hasError('required')">Email is required</span>
+                        <span class="text-danger" *ngIf="loginForm.get('email')?.errors">Email is required</span>
                       </div>
                       <div class="mb-3 col-md-6">
                         <label>Data Alta<span class="text-danger">*</span></label>
@@ -28,7 +28,7 @@
                         <div><label for="rol">Rol<span class="text-danger">*</span></label></div>
                         <div>
                           <p-dropdown id="rol" [options]="rolesList" formControlName="rol" optionLabel="rol" optionValue="id" placeholder="Select a rol"></p-dropdown>
-                          <span class="text-danger" *ngIf="loginForm.get('roles')?.errors && loginForm.get('roles')?.hasError('required')">Rol is required</span>
+                          <span class="text-danger" *ngIf="loginForm.get('roles')?.errors">Rol is required</span>
                         </div>
                       </div>
                       <div class="col-md-12">

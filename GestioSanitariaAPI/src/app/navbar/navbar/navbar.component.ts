@@ -16,15 +16,16 @@ export class NavbarComponent implements OnInit {
   userRol = '';
   itemsAdmin: MenuItem[] = [];
   itemsMetges : MenuItem[] = [];
+  itemsAdministrativo: MenuItem[] = [];
   loginSubscription : Subscription;
 
   constructor(private router: Router, private jwt: JwtService, private loginService : LoginService) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.currentUrl = event.url;
-        this.showDefaultNav = !( this.currentUrl == '/signup' || this.currentUrl == '/login' || this.currentUrl == '/home' || this.currentUrl == '/users-list');
-        this.showLoggedNav =  (this.currentUrl == '/home' || this.currentUrl == '/users-list');
-        console.log(this.showDefaultNav);
+        this.showDefaultNav = !( this.currentUrl == '/signup' || this.currentUrl == '/login' || this.currentUrl == '/home' || this.currentUrl == '/users-list' || this.currentUrl == '/paciente');
+        this.showLoggedNav =  (this.currentUrl == '/home' || this.currentUrl == '/users-list' || this.currentUrl == '/paciente');
+        console.log("El valor del navbar es: " + this.showDefaultNav);
       }
     });
 
@@ -37,6 +38,7 @@ export class NavbarComponent implements OnInit {
     this.onGetTokenData();
     this.onGetItemsAdmin();
     this.ongetItemsMetges();
+    this.onItemsAdministrativo();
 }
 
   onLogout()
@@ -49,7 +51,7 @@ export class NavbarComponent implements OnInit {
   {
     let tokenData = this.jwt.getTokenData();
     console.log('Los datos del token: ' ,tokenData);
-    this.userRol= tokenData['role'];
+    this.userRol= tokenData['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
     console.log('El rol del usuario es: ' + this.userRol);
     return this.userRol;
 
@@ -60,13 +62,14 @@ export class NavbarComponent implements OnInit {
       this.itemsAdmin = [
       {
           label: 'Admin',
+          icon: 'pi pi-fw pi-cog',
           items: [
             {
-                label: 'Users',
+                label: 'Usuarios',
                 icon: 'pi pi-fw pi-users',
                 items: [
                   {
-                    label: 'List of users',
+                    label: 'Lista de usuarios',
                     routerLink : ['/users-list']
                   },
                 ]
@@ -75,7 +78,7 @@ export class NavbarComponent implements OnInit {
               label: 'Roles',
               icon: 'pi pi-fw pi-user',
               items: [
-                  {label: 'List of rols'},
+                  {label: 'Lista de roles'},
                   {label: 'Other'},
               ]
           },
@@ -96,9 +99,54 @@ export class NavbarComponent implements OnInit {
       },
     ];
   }
+
   ongetItemsMetges()
   {
     this.itemsMetges = [
+      {
+          label: 'Edit',
+          icon: 'pi pi-fw pi-pencil',
+          items: [
+              {label: 'Delete', icon: 'pi pi-fw pi-trash'},
+              {label: 'Refresh', icon: 'pi pi-fw pi-refresh'}
+          ]
+      },
+      {
+        label: 'LogOut',
+        icon: 'pi pi-fw pi-sign-out' ,
+        command : () => this.onLogout()
+      },
+    ];
+  }
+
+  onItemsAdministrativo()
+  {
+    this.itemsAdministrativo = [
+      {
+          label: 'Pacientes',
+          icon: 'pi pi-fw pi-cog',
+          items: [
+            {
+                label: 'Ficha Pacientes',
+                icon: 'pi pi-fw pi-users',
+                items: [
+                {
+                  label: 'Crear Ficha de paciente',
+                  icon: 'pi pi-fw pi-user-plus',
+                  routerLink : ['/paciente']
+                 },
+              ]
+            },
+            {
+              label: 'Roles',
+              icon: 'pi pi-fw pi-user',
+              items: [
+                {label: 'List of rols'},
+                {label: 'Other'},
+              ]
+           },
+        ]
+      },
       {
           label: 'Edit',
           icon: 'pi pi-fw pi-pencil',

@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="row">
+      <div class="col-md-6 offset-md-3">
+          <div class="pacintes-form">
+              <form action="" class="mt-5 border p-4 bg-light shadow" [hidden]="loading" [formGroup]="CreatePacienteForm" (ngSubmit)="onSubmit()">
+                <h4 class="mb-5 text-secondary">Crear Ficha Paciente</h4>
+                  <div class="row">
+                      <div class="mb-3 col-md-6">
+                          <label>Nom</label>
+                          <input formControlName="nom" type="text" name="nomPacient" class="form-control" placeholder="Nom del pacient">
+                      </div>
+                      <div class="mb-3 col-md-6">
+                          <label>Primer Cognom</label>
+                          <input formControlName="primercognom" type="text" name="primerCognom" class="form-control" placeholder="Primer Cognom">
+                      </div>
+                      <div class="mb-3 col-md-6">
+                          <label>Segon Cognom</label>
+                          <input formControlName="segoncognom" type="text" name="segonCognom" class="form-control" placeholder="Segon Cognom">
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label>Email</label>
+                        <input formControlName="email" type="text" name="email" class="form-control" placeholder="Email">
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label>Edat</label>
+                        <input formControlName="edat" type="text" name="email" class="form-control" placeholder="Edat">
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label>Data Neixament</label>
+                        <p-calendar formControlName="dataneixament" dateFormat="dd/mm/yy" [showButtonBar]="true" placeholder=""></p-calendar>
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label>Direcci&oacute;</label>
+                        <input formControlName="direccio" type="text" name="direccio" class="form-control" placeholder="Direccio">
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label>Telefon</label>
+                        <input formControlName="telefon" type="text" name="telefon" class="form-control" placeholder="Telefon">
+                      </div>
+                      <!--<div *ngFor="let gen of genere" class="field-checkbox">
+                        <p-radioButton [inputId]="gen.code" formControlName="genere" [value]="gen" [(ngModel)]="selectedGenere"></p-radioButton>
+                        <label [for]="gen.code">{{gen.name}}</label>
+                      </div>-->
+                      <pre>
+                        <div class="col-md-12">
+                          <button class="btn btn-primary">Crear Ficha Pacinte</button>
+                        </div>
+                      </pre>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>

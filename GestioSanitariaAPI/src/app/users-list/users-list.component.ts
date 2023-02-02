@@ -1,4 +1,8 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { environment_ip } from 'src/environments/environment_ip';
 import { UsersList } from '../interfaces/users-list';
 import { UserListService } from '../services/user-list.service';
 
@@ -16,8 +20,13 @@ export class UsersListComponent implements OnInit {
 
   userData : any = null;
   user : any = null;
-  cols : any = null;
-  constructor(private userListService : UserListService) { }
+  rolesList : any;
+  rolesData : any = null;
+  rol: any = null;
+  clonedUser: { [s: string]: UsersList; } = {};
+
+  constructor(private userListService : UserListService,
+              private httpClient: HttpClient) { }
 
   ngOnInit(): void {
     this.getUserList();
@@ -29,16 +38,6 @@ export class UsersListComponent implements OnInit {
     {
       this.userListService.getUserList().subscribe((data) => {
         this.userData = data;
-
-        this.cols= [
-          { field: 'userName', header: 'UserName' },
-          { field: 'password', header: 'password' },
-          { field: 'email', header: 'Email' },
-          { field: 'dataAlta', header: 'Data Alta' },
-          { field: 'dataBaixa', header: 'Data Baixa' },
-          { field: 'esBloquejat', header: 'Bloquejat'},
-          { field: 'rol', header: 'Rol'}
-      ];
         console.log(this.userData);
       });
     }
@@ -49,13 +48,52 @@ export class UsersListComponent implements OnInit {
   }
 
   onRowEditInit(userData: UsersList) {
+    this.rolesData = this.onGetRoles();
+    console.log(this.rolesData);
+    this.clonedUser[userData.id.toString()] = {...userData}
 
   }
-  onRowEditSave(user : UsersList)
+  onRowEditSave(userData : UsersList)
   {
+    const headers = new HttpHeaders()
+    .append('Content-Type', 'application/json')
+    .append('Access-Control-Allow-Headers', 'Content-Type')
+    let jsonObject = JSON.stringify(userData);
+    console.log('Los datos: ' + jsonObject);
+    let petition = this.httpClient.put<UsersList>(environment_ip.baseUrl + '/api/UserApi/' + userData.id,
+    {
+      "Id": userData.id,
+      "UserName": userData.userName,
+      "Password": userData.password,
+      "Email": userData.email,
+      "DataAlta": userData.dataAlta,
+      "DataBaixa": userData.databaixa,
+      "EsBloquejat": userData.esBloquejat,
+      "Rol": this.rol
+
+    }, {headers}).subscribe();
+    console.log(petition);
+    return petition;
 
   }
   onRowEditCancel(userData: UsersList, index : number){
 
   }
+
+  onGetRoles()
+  {
+    return this.httpClient.get(environment_ip.baseUrl + '/api/RolesApi').subscribe((data) => {
+      this.rolesList = data;
+      console.log(this.rolesList);
+    });
+  }
+
+  onRolSelected(value: string)
+  {
+    this.rol = value;
+    console.log("El valor seleccionado es: " + value);
+
+  }
 }
+
+

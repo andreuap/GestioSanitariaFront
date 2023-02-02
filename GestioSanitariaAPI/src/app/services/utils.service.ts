@@ -21,19 +21,4 @@ export class UtilsService {
     })
     return res;
   }
-
-  setSEOTags(title: string, description: string, author: string, image: string): void{
-
-    this.titleService.setTitle(title);
-    this.metaTagService.addTags([
-      {name: 'description', content: description },
-      {name: 'author', content: author },
-      {name: 'image', content: image},
-      {name: 'og:description', description },
-      {name: 'og:author', author },
-      {name: 'og:image', content: image}
-    ]);
-
-
-  }
 }
